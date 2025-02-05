@@ -61,6 +61,3 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Automatically format Java code on save (with `javac`)
-autocmd BufWritePre *.java :silent! execute '!javac %' | edit
