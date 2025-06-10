@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Smart Net Speed with auto unit switch and arrows (↓ ↑)
+
+iface="${IFACE:-$BLOCK_INSTANCE}"
+iface="${iface:-$(ip route get 8.8.8.8 2>/dev/null | awk '{print $5; exit}')}"
+dt="${DT:-1}"
+
+check_iface() {
+    grep -m1 -E "^\s*$iface:" /proc/net/dev
+}
+
+init_line=$(check_iface)
+[ -z "$init_line" ] && echo "No interface $iface" && exit 1
+
+init_rx=$(awk '{print $2}' <<< "$init_line")
+init_tx=$(awk '{print $10}' <<< "$init_line")
+
+# Convert bytes per second to human readable format
+format_speed() {
+    local bytes=$1
+    if (( bytes >= 1073741824 )); then  # ≥ 1 GiB
+        echo "$(echo "scale=1; $bytes / 1073741824" | bc)G"
+    elif (( bytes >= 1048576 )); then   # ≥ 1 MiB
+        echo "$(echo "scale=1; $bytes / 1048576" | bc)M"
+    elif (( bytes >= 1024 )); then      # ≥ 1 KiB
+        echo "$(echo "scale=0; $bytes / 1024" | bc)K"
+    else
+        echo "${bytes}B"
+    fi
+}
+
+(while true; do cat /proc/net/dev; sleep "$dt"; done) | \
+    stdbuf -oL grep -E "^\s*$iface:" | \
+    awk -v iface="$iface" -v dt="$dt" '
+    
+    function format(b) {
+        if (b >= 1073741824) return sprintf("%3.1fG", b/1073741824);
+        else if (b >= 1048576) return sprintf("%3.1fM", b/1048576);
+        else if (b >= 1024) return sprintf("%3.0fK", b/1024);
+        else return sprintf("%3dB", b);
+    }
+    
+    BEGIN {
+        rx0='"$init_rx"';
+        tx0='"$init_tx"';
+    }
+    {
+        rx=$2;
+        tx=$10;
+        drx=(rx - rx0)/dt;
+        dtx=(tx - tx0)/dt;
+        rx0=rx;
+        tx0=tx;
+        if (drx >= 0 && dtx >= 0) {
+            printf "↓ %s ↑ %s\n", format(drx), format(dtx);
+            fflush(stdout);
+        }
+    }
+'
+

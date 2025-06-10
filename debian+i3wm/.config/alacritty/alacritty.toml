@@ -1,0 +1,5 @@
+# general.working_directory = "/home/sharad/Downloads"
+general.working_directory = "C:\\Users\\Sharad\\Downloads"
+
+[font]
+normal = { family = "JetBrains Mono", style = "Regular" }
