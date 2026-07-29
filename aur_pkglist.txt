@@ -1,0 +1,4 @@
+wvkbd
+yaak-bin
+yay-bin
+yay-bin-debug
