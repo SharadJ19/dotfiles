@@ -1,0 +1,134 @@
+/* Base settings */
+* {
+  font-family:
+    'Netflix Sans Medium', 'JetBrainsMono Nerd Font', 'Segoe UI', 'Font Awesome 6 Free', 'FontAwesome', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+/* Main Waybar Panel - Dark Windows Blue Theme */
+window#waybar {
+  background-color: rgba(15, 23, 42, 0.85); /* Slate Dark Blue */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* Common styling for module blocks (Pill Style) */
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#custom-keyboard,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd,
+#custom-power,
+#keyboard-state {
+  padding: 2px 12px; /* Slight increase in horizontal padding */
+  margin: 3px 2px;
+  background-color: rgba(30, 41, 59, 0.7); /* Subtle dark container */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  color: #e2e8f0;
+  letter-spacing: 0.5px; /* Ensures text glyphs don't clip into Nerd Font icons */
+}
+
+/* Workspaces */
+#workspaces {
+  margin: 0 4px;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  margin: 3px 2px;
+  background-color: transparent;
+  color: #94a3b8;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+  background-color: #0078d4; /* Windows Accent Blue */
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#workspaces button.urgent {
+  background-color: #f43f5e;
+  color: #ffffff;
+}
+
+/* Specific Accent Tweaks */
+#clock {
+  font-weight: 600;
+  color: #38bdf8; /* Soft blue text highlight */
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #4ade80;
+}
+
+@keyframes blink {
+  to {
+    background-color: #f43f5e;
+    color: #ffffff;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: rgba(244, 63, 94, 0.2);
+  color: #f43f5e;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#pulseaudio.muted {
+  color: #94a3b8;
+}
+
+#network.disconnected {
+  color: #f43f5e;
+}
+
+#custom-power {
+  background-color: rgba(0, 120, 212, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(0, 120, 212, 0.4);
+}
+
+#custom-power:hover {
+  background-color: #0078d4;
+  color: #ffffff;
+}
+
+#tray {
+  margin-right: 4px;
+}

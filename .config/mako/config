@@ -1,0 +1,28 @@
+# Font
+font=Netflix Sans 10.5
+
+# Geometry & Layout
+width=320
+height=150
+margin=12
+padding=12
+border-size=1
+border-radius=8
+
+# Colors (#0f172aD9 = Dark Blue with ~85% transparency)
+background-color=#0f172aD9
+text-color=#f8fafc
+border-color=#334155D9
+
+# Modern Accent Line on the Left
+progress-color=over #38bdf8
+
+# Timeout (5 seconds)
+default-timeout=5000
+
+# Critical / Urgent Notifications
+[urgency=critical]
+background-color=#0f172aF0
+border-color=#f43f5e
+text-color=#f43f5e
+default-timeout=0

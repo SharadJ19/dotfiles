@@ -1,0 +1,40 @@
+# --- Appearance & Assets ---
+image=/home/sharad/.config/sway/wallpapers/lockscreen.png
+scaling=fill
+font=Netflix Sans Medium
+font-size=36
+
+# --- Indicator Geometry ---
+indicator-radius=85
+indicator-thickness=12
+
+# --- Color Palette (Windows Dark Blue) ---
+# Base Fill (Deep Navy Translucency)
+inside-color=0f172acc
+inside-clear-color=0f172acc
+inside-ver-color=0f172acc
+inside-wrong-color=0f172acc
+
+# Default Ring & Boundaries (Subtle Slate Blue)
+ring-color=33415588
+line-color=00000000
+separator-color=00000000
+
+# Highlights & Key Strokes (Windows Accent Blue)
+key-hl-color=0078d4
+bs-hl-color=60a5fa
+
+# State Feedback Rings (Windows Blue / Amber / Crimson)
+ring-clear-color=f59e0b
+ring-ver-color=0078d4
+ring-wrong-color=f43f5e
+
+# Text Colors
+text-color=f8fafc
+text-clear-color=f59e0b
+text-ver-color=ffffff
+text-wrong-color=f43f5e
+
+# --- Functionality & UX ---
+show-failed-attempts
+ignore-empty-password
