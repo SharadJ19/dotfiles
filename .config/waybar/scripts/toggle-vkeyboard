@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if pgrep -x "wvkbd-mobintl" > /dev/null; then
+    pkill -x "wvkbd-mobintl"
+else
+    # -L sets the landscape height in pixels (default is often around 300+)
+    # Lower the number to make it smaller (e.g., 160 or 180)
+    wvkbd-mobintl -L 160 --fn "Netflix Sans 10.5" &
+fi

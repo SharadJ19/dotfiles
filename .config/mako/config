@@ -18,7 +18,7 @@ border-color=#334155D9
 progress-color=over #38bdf8
 
 # Timeout (5 seconds)
-default-timeout=5000
+default-timeout=12000
 
 # Critical / Urgent Notifications
 [urgency=critical]

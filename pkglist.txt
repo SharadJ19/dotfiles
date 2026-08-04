@@ -6,6 +6,10 @@ bluez
 bluez-utils
 brightnessctl
 cameractrls
+cliphist
+docker
+docker-buildx
+docker-compose
 easyeffects
 efibootmgr
 firefox
@@ -18,6 +22,8 @@ htop
 intel-media-driver
 intel-ucode
 iwd
+iwgtk
+jq
 libpulse
 libva-intel-driver
 linux
@@ -73,12 +79,17 @@ wget
 wireplumber
 wl-clipboard
 wmenu
+wtype
+wvkbd
 xdg-desktop-portal-wlr
 xdg-utils
 xf86-video-amdgpu
 xf86-video-ati
 xf86-video-nouveau
 xorg-xwayland
+yaak-bin
+yay-bin
+yay-bin-debug
 zed
 zip
 zram-generator

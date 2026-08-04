@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Power options with clean Nerd Font icons
+op_shutdown="󰐥  Shutdown"
+op_reboot="󰜉  Reboot"
+op_lock="󰌾  Lock"
+op_suspend="󰤄  Suspend"
+op_logout="󰍃  Exit Sway"
+
+# Combine options separated by newline
+options="$op_shutdown\n$op_reboot\n$op_lock\n$op_suspend\n$op_logout"
+
+# Pass options to rofi in dmenu mode
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "󰐥  Power")
+
+# Execute action based on selection
+case "$chosen" in
+    "$op_shutdown")
+        systemctl poweroff
+        ;;
+    "$op_reboot")
+        systemctl reboot
+        ;;
+    "$op_lock")
+        swaylock || loginctl lock-session
+        ;;
+    "$op_suspend")
+        systemctl suspend
+        ;;
+    "$op_logout")
+        swaymsg exit
+        ;;
+esac

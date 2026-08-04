@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "diff_view_style": "split",
   "disable_ai": true,
   "diagnostics": {
     "button": false,
@@ -40,7 +41,7 @@
   "close_on_file_delete": true,
   "prettier": {
     "allowed": true,
-    "printWidth": 120,
+    "printWidth": 90,
     "tabWidth": 2,
     "useTabs": false,
     "semi": true,
@@ -48,8 +49,7 @@
     "jsxSingleQuote": true,
     "trailingComma": "all",
     "bracketSpacing": true,
-    "bracketSameLine": true,
-    "singleAttributePerLine": false,
+    "bracketSameLine": false,
     "arrowParens": "always",
     "endOfLine": "lf",
   },

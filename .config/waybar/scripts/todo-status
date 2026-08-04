@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+TODO_FILE="$HOME/notes/todo.txt"
+
+# Count non-empty lines
+if [ -f "$TODO_FILE" ]; then
+    COUNT=$(grep -c -v '^[[:space:]]*$' "$TODO_FILE" 2>/dev/null)
+else
+    COUNT=0
+fi
+
+COUNT=${COUNT:-0}
+
+if [ "$COUNT" -eq 0 ]; then
+    TEXT="All done!"
+    TOOLTIP="No pending tasks"
+    ICON="󰱒 "
+    CLASS="done"
+
+    python3 -c '
+import json, sys
+print(json.dumps({
+    "text": sys.argv[1],
+    "tooltip": sys.argv[2],
+    "class": sys.argv[3]
+}))
+' "$ICON $TEXT" "$TOOLTIP" "$CLASS"
+
+else
+    # Get first task for display preview
+    FIRST_TASK=$(grep -v '^[[:space:]]*$' "$TODO_FILE" 2>/dev/null | head -n 1)
+
+    if [ "$COUNT" -eq 1 ]; then
+        TEXT="$FIRST_TASK"
+    else
+        TEXT="$FIRST_TASK (+$((COUNT - 1)))"
+    fi
+
+    ICON="󰄱 "
+    CLASS="pending"
+    FULL_TEXT="$ICON $TEXT"
+
+    # Pass the task list array directly to Python for clean newline formatting
+    grep -v '^[[:space:]]*$' "$TODO_FILE" 2>/dev/null | python3 -c '
+import json, sys
+
+tasks = [line.strip() for line in sys.stdin if line.strip()]
+count = len(tasks)
+
+tooltip_lines = [f"Pending Tasks ({count}):"]
+for t in tasks:
+    tooltip_lines.append(f"• {t}")
+
+tooltip = "\n".join(tooltip_lines)
+
+print(json.dumps({
+    "text": sys.argv[1],
+    "tooltip": tooltip,
+    "class": sys.argv[2]
+}))
+' "$FULL_TEXT" "$CLASS"
+
+fi

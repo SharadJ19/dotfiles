@@ -8,6 +8,7 @@
   "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
   "modules-center": [],
   "modules-right": [
+    "custom/todo",
     "idle_inhibitor",
     "pulseaudio",
     "network",
@@ -19,7 +20,16 @@
     "tray",
     "custom/power",
   ],
-
+  "custom/todo": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/todo-status",
+    "signal": 8,
+    "interval": 300,
+    "on-click": "~/.config/rofi/scripts/todo",
+    "on-click-right": "> ~/notes/done.txt && notify-send 'To-Do' 'Cleared completion history' -i dialog-information",
+    "escape": true,
+  },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>",
   },

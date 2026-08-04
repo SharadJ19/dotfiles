@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+# Location: ~/.local/bin/rofi-clip
+
+PIN_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/cliphist_pinned.txt"
+mkdir -p "$(dirname "$PIN_FILE")"
+touch "$PIN_FILE"
+
+# Define menu options with matching icons
+OPT_PIN="󰐵  [Manage: Pin Text]"
+OPT_DEL="󰆴  [Manage: Delete Item]"
+OPT_CLEAR="󰃢  [Manage: Clear All History]"
+
+ROFI_PROMPT="  Clipboard"
+ROFI_CMD="rofi -dmenu -i -p \"$ROFI_PROMPT\""
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -a "Clipboard" -i edit-paste "$1" "$2"
+    fi
+}
+
+paste_action() {
+    if command -v wtype >/dev/null 2>&1; then
+        sleep 0.15
+        wtype -M ctrl -k v -m ctrl
+    fi
+}
+
+show_menu() {
+    local pinned_items
+    local history_items
+
+    pinned_items=$(sed 's/^/󰐵  [PIN] /' "$PIN_FILE" 2>/dev/null)
+    history_items=$(cliphist list)
+
+    if [[ -n "$pinned_items" ]]; then
+        combined="${pinned_items}\n${history_items}"
+    else
+        combined="${history_items}"
+    fi
+
+    options="${combined}\n${OPT_DEL}\n${OPT_PIN}\n${OPT_CLEAR}"
+
+    selected=$(echo -e "$options" | eval "$ROFI_CMD")
+
+    [[ -z "$selected" ]] && exit 0
+
+    case "$selected" in
+        "$OPT_PIN")
+            pin_selection=$(cliphist list | eval "$ROFI_CMD -p 'Select to Pin:'")
+            if [[ -n "$pin_selection" ]]; then
+                text_content=$(echo "$pin_selection" | cliphist decode)
+                if ! grep -Fxq "$text_content" "$PIN_FILE"; then
+                    echo "$text_content" >> "$PIN_FILE"
+                    notify "Pinned" "Item added to pinned clipboard."
+                fi
+            fi
+            ;;
+
+        "$OPT_DEL")
+            del_selection=$(cliphist list | eval "$ROFI_CMD -p 'Select to Delete:'")
+            if [[ -n "$del_selection" ]]; then
+                echo "$del_selection" | cliphist delete
+                notify "Deleted" "Selected item removed from history."
+            fi
+            ;;
+
+        "$OPT_CLEAR")
+            confirm=$(echo -e "No\nYes" | eval "$ROFI_CMD -p 'Wipe clipboard history?'")
+            if [[ "$confirm" == "Yes" ]]; then
+                cliphist wipe
+                notify "Clipboard Cleared" "All history has been wiped."
+            fi
+            ;;
+
+        *"[PIN]"*)
+            raw_text="${selected#*󰐵  [PIN] }"
+            echo -n "$raw_text" | wl-copy
+            notify "Copied (Pinned)" "$raw_text"
+            paste_action
+            ;;
+
+        *)
+            # Extract and copy using cliphist decode
+            echo "$selected" | cliphist decode | wl-copy
+            snippet=$(echo "$selected" | cut -d$'\t' -f2- | head -c 40)
+            notify "Copied to Clipboard" "${snippet}..."
+            paste_action
+            ;;
+    esac
+}
+
+show_menu

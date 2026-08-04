@@ -110,13 +110,13 @@ listview {
 }
 
 /* =========================================================================
-   ELEMENTS
+   ELEMENTS (FIXED FOR INVISIBLE TEXT)
    ========================================================================= */
 element {
     enabled:          true;
     spacing:          8px;
     margin:           0px;
-    padding:          5px 8px;
+    padding:          6px 10px;
     border-radius:    5px;
     background-color: transparent;
     text-color:       @fg-main;
@@ -138,13 +138,6 @@ element selected.normal {
     text-color:       #ffffff;
 }
 
-element-icon {
-    background-color: transparent;
-    text-color:       inherit;
-    size:             18px;
-    cursor:           inherit;
-}
-
 element-text {
     background-color: transparent;
     text-color:       inherit;
@@ -152,4 +145,11 @@ element-text {
     cursor:           inherit;
     vertical-align:   0.5;
     horizontal-align: 0.0;
+}
+
+element-icon {
+    background-color: transparent;
+    text-color:       inherit;
+    size:             18px;
+    cursor:           inherit;
 }

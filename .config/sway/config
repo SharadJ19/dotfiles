@@ -28,6 +28,11 @@ exec /usr/lib/polkit-kde-authentication-agent-1
 exec mako
 exec waybar
 exec blueman-applet
+exec iwgtk -i
+
+# --- Clipboard Daemons ---
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 
 ### Output configuration
 #
@@ -89,6 +94,12 @@ input type:touchpad {
     # start filemanager
     bindsym $mod+t exec $filemanager
 
+    # Toggle Rofi Todo Script
+    bindsym $mod+n exec ~/.config/rofi/scripts/todo
+
+    # Clipboard Manager Script
+    bindsym $mod+v exec ~/.config/rofi/scripts/clip
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -102,8 +113,8 @@ input type:touchpad {
     # Exit sway (logs you out of your Wayland session)
     # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-    # Keybinding for power menu (Super + Shift + E or Mod4 + Escape)
-    bindsym $mod+Shift+e exec ~/.local/bin/powermenu
+    # Keybinding for power menu
+    bindsym $mod+Shift+e exec ~/.config/rofi/scripts/powermenu
 
 #
 # Moving around:
@@ -163,7 +174,7 @@ input type:touchpad {
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
     bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking

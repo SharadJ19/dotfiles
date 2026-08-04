@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+TODO_FILE="$HOME/notes/todo.txt"
+DONE_FILE="$HOME/notes/done.txt"
+
+mkdir -p "$(dirname "$TODO_FILE")"
+touch "$TODO_FILE" "$DONE_FILE"
+
+VIEW_OPT="󰋚    View completed history"
+CLEAR_OPT="󰃢    Clear completed history"
+
+# Read non-empty lines into arrays
+mapfile -t TASKS < <(grep -v '^[[:space:]]*$' "$TODO_FILE" 2>/dev/null)
+mapfile -t DONE_TASKS < <(grep -v '^[[:space:]]*$' "$DONE_FILE" 2>/dev/null)
+
+# Prepare main menu list
+MENU_LIST=("${TASKS[@]}")
+
+# Show history options if completed tasks exist
+if [ ${#DONE_TASKS[@]} -gt 0 ]; then
+    MENU_LIST+=("$VIEW_OPT")
+    MENU_LIST+=("$CLEAR_OPT")
+fi
+
+# Display Rofi Menu
+if [ ${#MENU_LIST[@]} -eq 0 ]; then
+    SELECTION=$(rofi -dmenu -i -p "󱞁   Todo" -placeholder "Type new task...")
+else
+    SELECTION=$(printf '%s\n' "${MENU_LIST[@]}" | rofi -dmenu -i -p "󱞁   Todo" -placeholder "Type new task or select existing...")
+fi
+
+# Trim leading/trailing whitespace
+SELECTION=$(echo "$SELECTION" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
+# Exit if escape was pressed or empty input
+[ -z "$SELECTION" ] && exit 0
+
+# --- HANDLER LOGIC ---
+
+if [ "$SELECTION" = "$VIEW_OPT" ]; then
+    # Show finished tasks (newest at top) in read-only Rofi menu
+    tac "$DONE_FILE" | grep -v '^[[:space:]]*$' | rofi -dmenu -i -p "󰄬  Completed History" -placeholder "Press Escape to close..." >/dev/null
+
+elif [ "$SELECTION" = "$CLEAR_OPT" ]; then
+    # Clear done history
+    > "$DONE_FILE"
+    notify-send "To-Do" "Cleared completion history" -i dialog-information
+
+elif grep -qxF -- "$SELECTION" "$TODO_FILE" 2>/dev/null; then
+    # Selected an existing task -> Move to done.txt
+    TMP_FILE=$(mktemp)
+    grep -vxF -- "$SELECTION" "$TODO_FILE" > "$TMP_FILE" || true
+    mv "$TMP_FILE" "$TODO_FILE"
+
+    echo "$SELECTION" >> "$DONE_FILE"
+    notify-send "Task Done!" "$SELECTION" -i task-complete
+
+else
+    # User typed a new task -> Append
+    echo "$SELECTION" >> "$TODO_FILE"
+    notify-send "Task Added" "$SELECTION" -i emblem-added
+fi
+
+# Force Waybar to update instantly
+pkill -RTMIN+8 waybar

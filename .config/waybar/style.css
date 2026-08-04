@@ -1,7 +1,8 @@
 /* Base settings */
 * {
   font-family:
-    'Netflix Sans Medium', 'JetBrainsMono Nerd Font', 'Segoe UI', 'Font Awesome 6 Free', 'FontAwesome', sans-serif;
+    'Netflix Sans Medium', 'JetBrainsMono Nerd Font', 'Segoe UI', 'Font Awesome 6 Free',
+    'FontAwesome', sans-serif;
   font-size: 13px;
   font-weight: 500;
   border: none;
@@ -33,6 +34,7 @@ window#waybar.hidden {
 #pulseaudio,
 #custom-media,
 #custom-keyboard,
+#custom-todo,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -49,6 +51,22 @@ window#waybar.hidden {
   color: #e2e8f0;
   letter-spacing: 0.5px; /* Ensures text glyphs don't clip into Nerd Font icons */
 }
+
+#keyboard-state {
+  padding: 2px 12px;
+  margin: 3px 2px;
+  background-color: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  color: #e2e8f0;
+  letter-spacing: 0.5px;
+}
+
+/* Optional highlight styling for your Todo pill */
+/*#custom-todo {
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}*/
 
 /* Workspaces */
 #workspaces {
@@ -131,4 +149,29 @@ window#waybar.hidden {
 
 #tray {
   margin-right: 4px;
+}
+
+/* Custom Todo Module Styling */
+#custom-todo {
+  transition: all 0.2s ease;
+}
+
+/* State: Pending Tasks */
+#custom-todo.pending {
+  color: #38bdf8; /* Soft Windows blue */
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background-color: rgba(30, 41, 59, 0.85);
+}
+
+/* State: All Tasks Completed */
+#custom-todo.done {
+  color: #4ade80; /* Success green */
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  background-color: rgba(30, 41, 59, 0.6);
+}
+
+/* Hover Effect */
+#custom-todo:hover {
+  background-color: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.5);
 }
