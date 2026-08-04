@@ -62,11 +62,11 @@ window#waybar.hidden {
   letter-spacing: 0.5px;
 }
 
-/* Optional highlight styling for your Todo pill */
-/*#custom-todo {
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.2);
-}*/
+/* Custom Spotify/Media Module - Spotify Green Text & Icon Only */
+#custom-media {
+  color: #1db954; /* Official Spotify Green */
+  font-weight: 600; /* Makes icon & text pop */
+}
 
 /* Workspaces */
 #workspaces {

@@ -11,7 +11,7 @@
     "custom/todo",
     "idle_inhibitor",
     "pulseaudio",
-    "network",
+    // "network",
     "cpu",
     "memory",
     "backlight",
