@@ -6,12 +6,15 @@ PIN_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/cliphist_pinned.txt"
 mkdir -p "$(dirname "$PIN_FILE")"
 touch "$PIN_FILE"
 
-# Define menu options with matching icons
-OPT_PIN="󰐵  [Manage: Pin Text]"
-OPT_DEL="󰆴  [Manage: Delete Item]"
-OPT_CLEAR="󰃢  [Manage: Clear All History]"
+# Standardized prefix for pinned items
+PIN_PREFIX="   [PIN] "
 
-ROFI_PROMPT="  Clipboard"
+# Define menu options
+OPT_PIN="   [Manage: Pin Text]"
+OPT_DEL="󰆴   [Manage: Delete Item]"
+OPT_CLEAR="󰃢   [Manage: Clear All History]"
+
+ROFI_PROMPT="   Clipboard"
 ROFI_CMD="rofi -dmenu -i -p \"$ROFI_PROMPT\""
 
 notify() {
@@ -30,17 +33,27 @@ paste_action() {
 show_menu() {
     local pinned_items
     local history_items
+    local combined=""
 
-    pinned_items=$(sed 's/^/󰐵  [PIN] /' "$PIN_FILE" 2>/dev/null)
+    # Format pinned items, ignore blank lines
+    pinned_items=$(awk -v prefix="$PIN_PREFIX" 'NF {print prefix $0}' "$PIN_FILE" 2>/dev/null)
     history_items=$(cliphist list)
 
-    if [[ -n "$pinned_items" ]]; then
+    # Build combined list without leading or trailing extra newlines
+    if [[ -n "$pinned_items" ]] && [[ -n "$history_items" ]]; then
         combined="${pinned_items}\n${history_items}"
-    else
+    elif [[ -n "$pinned_items" ]]; then
+        combined="${pinned_items}"
+    elif [[ -n "$history_items" ]]; then
         combined="${history_items}"
     fi
 
-    options="${combined}\n${OPT_DEL}\n${OPT_PIN}\n${OPT_CLEAR}"
+    # Append management options
+    if [[ -n "$combined" ]]; then
+        options="${combined}\n${OPT_DEL}\n${OPT_PIN}\n${OPT_CLEAR}"
+    else
+        options="${OPT_DEL}\n${OPT_PIN}\n${OPT_CLEAR}"
+    fi
 
     selected=$(echo -e "$options" | eval "$ROFI_CMD")
 
@@ -59,30 +72,36 @@ show_menu() {
             ;;
 
         "$OPT_DEL")
-            del_selection=$(cliphist list | eval "$ROFI_CMD -p 'Select to Delete:'")
+            del_selection=$(echo -e "$combined" | eval "$ROFI_CMD -p 'Select to Delete:'")
             if [[ -n "$del_selection" ]]; then
-                echo "$del_selection" | cliphist delete
-                notify "Deleted" "Selected item removed from history."
+                if [[ "$del_selection" == "$PIN_PREFIX"* ]]; then
+                    raw_text="${del_selection#"$PIN_PREFIX"}"
+                    temp_file=$(mktemp)
+                    awk -v target="$raw_text" '$0 != target' "$PIN_FILE" > "$temp_file" && mv "$temp_file" "$PIN_FILE"
+                    notify "Unpinned" "Item removed from pinned list."
+                else
+                    echo "$del_selection" | cliphist delete
+                    notify "Deleted" "Selected item removed from history."
+                fi
             fi
             ;;
 
         "$OPT_CLEAR")
-            confirm=$(echo -e "No\nYes" | eval "$ROFI_CMD -p 'Wipe clipboard history?'")
+            confirm=$(echo -e "No\nYes" | eval "$ROFI_CMD -p 'Wipe clipboard history? (Pinned items will be saved)'")
             if [[ "$confirm" == "Yes" ]]; then
                 cliphist wipe
-                notify "Clipboard Cleared" "All history has been wiped."
+                notify "Clipboard Cleared" "History wiped (Pinned items preserved)."
             fi
             ;;
 
-        *"[PIN]"*)
-            raw_text="${selected#*󰐵  [PIN] }"
+        "$PIN_PREFIX"*)
+            raw_text="${selected#"$PIN_PREFIX"}"
             echo -n "$raw_text" | wl-copy
             notify "Copied (Pinned)" "$raw_text"
             paste_action
             ;;
 
         *)
-            # Extract and copy using cliphist decode
             echo "$selected" | cliphist decode | wl-copy
             snippet=$(echo "$selected" | cut -d$'\t' -f2- | head -c 40)
             notify "Copied to Clipboard" "${snippet}..."
