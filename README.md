@@ -4,17 +4,25 @@ My personal Arch Linux setup running Sway on an **ASUS VivoBook 14**. Built arou
 
 ### 📸 Screenshots
 
-> _Screenshots will be added here once captured._
+#### Top Bar (Waybar)
+
+![Waybar Detail](./screenshots/waybar-detail.png)
 
 #### Desktop & Workspaces
 
 ![Desktop Overview](./screenshots/desktop.png)
 
-#### Key Applications (Rofi & Terminal)
+#### Core Utilities (Launcher & Terminal)
 
-|             Launcher & To-Do             |              Terminal (`foot`)               |
+|      Application Launcher (`rofi`)       |              Terminal (`foot`)               |
 | :--------------------------------------: | :------------------------------------------: |
 | ![Rofi Launcher](./screenshots/rofi.png) | ![Foot Terminal](./screenshots/terminal.png) |
+
+#### Rofi Scripts & Workflows
+
+|              Clipboard Manager               |            To-Do List Script            |                 Power Menu                 |
+| :------------------------------------------: | :-------------------------------------: | :----------------------------------------: |
+| ![Clipboard Manager](./screenshots/clip.png) | ![To-Do Script](./screenshots/todo.png) | ![Power Menu](./screenshots/powermenu.png) |
 
 ### 🎨 Theme & Appearance
 
@@ -47,15 +55,18 @@ options snd-intel-dspcfg dsp_driver=1
 
 ### ⌨️ Custom Keybindings & Workflow
 
-| Keybinding        | Action                                   |
-| ----------------- | ---------------------------------------- |
-| `Mod + Return`    | Open `foot` terminal                     |
-| `Mod + d`         | Open Rofi launcher                       |
-| `Mod + t`         | Open Thunar file manager                 |
-| `Mod + n`         | Toggle Rofi To-Do list script            |
-| `Mod + v`         | Open Rofi Clipboard history (`cliphist`) |
-| `Mod + Shift + e` | Open Rofi Power Menu                     |
-| `Print`           | Take full screenshot with `grim`         |
+| Keybinding        | Action                                                  |
+| ----------------- | ------------------------------------------------------- |
+| `Mod + Return`    | Open `foot` terminal                                    |
+| `Mod + d`         | Open Rofi launcher                                      |
+| `Mod + t`         | Open Thunar file manager                                |
+| `Mod + n`         | Toggle Rofi To-Do list script                           |
+| `Mod + v`         | Open Rofi Clipboard history (`cliphist`)                |
+| `Mod + Shift + e` | Open Rofi Power Menu                                    |
+| `Print`           | Capture full screen to `~/Pictures/Screenshots/`        |
+| `Shift + Print`   | Select region with `slurp` to `~/Pictures/Screenshots/` |
+| `Mod + Shift + s` | Select region with `slurp` directly to **Clipboard**    |
+| `Mod + Print`     | Capture full screen directly to **Clipboard**           |
 
 ### 📂 What's In Here?
 
@@ -78,7 +89,7 @@ dotfiles/
 │       └── fonts/       # Custom Netflix Sans font family
 ├── etc/
 │   └── modprobe.d/      # Audio fix for ASUS Tiger Lake mic
-├── screenshots/         # Desktop previews (.gitkeep initialized)
+├── screenshots/         # Desktop previews
 ├── pkglist.txt          # Native pacman package dump
 └── aur_pkglist.txt      # AUR package dump
 
@@ -139,7 +150,6 @@ pacman -Qqem > aur_pkglist.txt
 
 # Commit
 git add .
-git commit -m "style(dotfiles): update configs, fonts, and package lists"
+git commit -m "style(dotfiles): update configs, screenshots, and package lists"
 git push
-
 ```

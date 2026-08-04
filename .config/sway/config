@@ -248,8 +248,18 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
-    # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    ### --- Screenshots (grim + slurp) --- ###
+    # 1. Fullscreen -> Save to ~/Pictures/Screenshots with timestamp
+    bindsym Print exec mkdir -p ~/Pictures/Screenshots && grim ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+
+    # 2. Select Region -> Save to ~/Pictures/Screenshots
+    bindsym Shift+Print exec mkdir -p ~/Pictures/Screenshots && grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+
+    # 3. Select Region -> Copy directly to Clipboard (No file saved)
+    bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+    # 4. Fullscreen -> Copy directly to Clipboard
+    bindsym $mod+Print exec grim - | wl-copy
 
 #
 # Status Bar:
