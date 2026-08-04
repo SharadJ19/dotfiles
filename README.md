@@ -141,7 +141,7 @@ When making changes locally, sync back to this repo and push:
 cd ~/dotfiles
 
 # Sync updated configs and fonts
-cp -ur ~/.config/{easyeffects,foot,gtk-3.0,gtk-4.0,mako,rofi,sway,swaylock,waybar,zed} .config/
+cp -ur ~/.config/{easyeffects,foot,gtk-3.0,gtk-4.0,mako,rofi,sway,swayimg,swaylock,waybar,zed} .config/
 cp -ur ~/.local/share/fonts/NetflixSans .local/share/fonts/ 2>/dev/null || true
 
 # Refresh package snapshots
