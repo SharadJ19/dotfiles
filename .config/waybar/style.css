@@ -103,7 +103,8 @@ window#waybar.hidden {
 /* Specific Accent Tweaks */
 #clock {
   font-weight: 600;
-  color: #38bdf8; /* Soft blue text highlight */
+  color: #c084fc; /* Vibrant Soft Lavender */
+  /* Alternative lighter shade: #e9d5ff */
 }
 
 #battery.charging,
