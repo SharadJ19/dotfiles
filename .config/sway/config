@@ -16,7 +16,7 @@ set $filemanager thunar
 font pango:Netflix Sans 9.5
 
 # --- 3. AUTOSTART SERVICES ---
-exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec --no-startup-id /usr/lib/polkit-kde/polkit-kde-authentication-agent-1
 exec --no-startup-id mako
 exec --no-startup-id waybar
 exec --no-startup-id blueman-applet
@@ -37,25 +37,36 @@ input type:touchpad {
     middle_emulation enabled
     click_method clickfinger
     accel_profile flat
-    pointer_accel 0.75       # highly responsive cursor
+    pointer_accel 0.75       # Highly responsive cursor for 14-inch display
     scroll_factor 1.2        # Faster, fluid scrolling speed
 }
 
 # --- 6. SMART WINDOW & FLOATING RULES ---
-# Force utility, archive managers, and dialogs to always open as floating windows
+# Utilities & Settings Managers
 for_window [app_id="org.twosheds.iwgtk"] floating enable, resize set 550 px 400 px
 for_window [app_id="blueman-manager"] floating enable, resize set 650 px 500 px
 for_window [app_id="pavucontrol"] floating enable, resize set 600 px 400 px
-for_window [app_id="xarchiver"] floating enable, resize set 700 px 500 px
 for_window [app_id="com.github.wwmm.easyeffects"] floating enable, resize set 900 px 600 px
-for_window [app_id="swayimg"] floating enable, resize set 900 px 600 px
-for_window [app_id="mpv"] floating enable, resize set 960 px 540 px
+
+# File Managers & Archives
+for_window [app_id="xarchiver"] floating enable, resize set 700 px 500 px
+for_window [app_id="org.gnome.FileRoller"] floating enable, resize set 700 px 500 px
 for_window [app_id="thunar" title="File Operation Progress"] floating enable
 for_window [app_id="thunar" title="Confirm to replace files"] floating enable
 for_window [app_id="thunar" title="^Rename "] floating enable, resize set 400 px 150 px, move position center
+for_window [app_id="thunar" title="Properties"] floating enable, resize set 500 px 600 px
+
+# Media, Downloads & Viewers
+for_window [app_id="mpv"] floating enable, resize set 960 px 540 px
+for_window [app_id="swayimg"] floating enable, resize set 900 px 600 px
+for_window [app_id="org.qbittorrent.qBittorrent"] floating enable, resize set 950 px 600 px
+
+# Universal Fallbacks for Dialogs, Popups & Sub-windows
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="utility"] floating enable
 
 # --- 7. KEY BINDINGS ---
 
@@ -172,10 +183,11 @@ bar {
 }
 
 # --- 9. WINDOW THEME & BORDERS ---
-client.focused          #005A9E #005A9E #FFFFFF #0078D4   #005A9E
-client.focused_inactive #25384c #25384c #A6B8C7 #1E2D3D   #25384c
-client.unfocused        #1F2429 #1F2429 #8C969F #1F2429   #1F2429
-client.urgent           #E81123 #E81123 #FFFFFF #FF8C00   #E81123
+default_border pixel 2
+client.focused         #005A9E #005A9E #FFFFFF #0078D4    #005A9E
+client.focused_inactive #25384c #25384c #A6B8C7 #1E2D3D    #25384c
+client.unfocused        #1F2429 #1F2429 #8C969F #1F2429    #1F2429
+client.urgent           #E81123 #E81123 #FFFFFF #FF8C00    #E81123
 
 # --- 10. INCLUDES ---
 include /etc/sway/config.d/*
