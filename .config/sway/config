@@ -1,5 +1,5 @@
 # =========================================================================
-# SWAYWM CONFIGURATION - ARCH LINUX
+# SWAYWM CONFIGURATION - ARCH LINUX (UPDATED & OPTIMIZED)
 # =========================================================================
 
 # --- 1. VARIABLES ---
@@ -28,15 +28,35 @@ exec --no-startup-id wl-paste --type image --watch cliphist store
 output * bg $HOME/.config/sway/wallpapers/typescript.png fill
 output eDP-1 resolution 1920x1080 position 0,0 scale 1.5
 
-# --- 5. INPUT CONFIGURATION ---
+# --- 5. INPUT CONFIGURATION (ASUS VIVOBOOK 14 OPTIMIZED) ---
 input type:touchpad {
     dwt enabled
     tap enabled
+    tap_button_map lrm
     natural_scroll enabled
     middle_emulation enabled
+    click_method clickfinger
+    accel_profile flat
+    pointer_accel 0.25
+    scroll_factor 0.6
 }
 
-# --- 6. KEY BINDINGS ---
+# --- 6. SMART WINDOW & FLOATING RULES ---
+# Force utility, archive managers, and dialogs to always open as floating windows
+for_window [app_id="org.twosheds.iwgtk"] floating enable, resize set 550 px 400 px
+for_window [app_id="blueman-manager"] floating enable, resize set 650 px 500 px
+for_window [app_id="pavucontrol"] floating enable, resize set 600 px 400 px
+for_window [app_id="xarchiver"] floating enable, resize set 700 px 500 px
+for_window [app_id="com.github.wwmm.easyeffects"] floating enable, resize set 900 px 600 px
+for_window [app_id="swayimg"] floating enable, resize set 900 px 600 px
+for_window [app_id="mpv"] floating enable, resize set 960 px 540 px
+for_window [app_id="thunar" title="File Operation Progress"] floating enable
+for_window [app_id="thunar" title="Confirm to replace files"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="dialog"] floating enable
+
+# --- 7. KEY BINDINGS ---
 
 # Basics
 bindsym $mod+Return exec $term
@@ -145,16 +165,16 @@ bindsym Shift+Print exec mkdir -p ~/Pictures/Screenshots && grim -g "$(slurp)" ~
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 bindsym $mod+Print exec grim - | wl-copy
 
-# --- 7. STATUS BAR ---
+# --- 8. STATUS BAR ---
 bar {
     swaybar_command disabled
 }
 
-# --- 8. WINDOW THEME & BORDERS ---
+# --- 9. WINDOW THEME & BORDERS ---
 client.focused          #005A9E #005A9E #FFFFFF #0078D4   #005A9E
 client.focused_inactive #25384c #25384c #A6B8C7 #1E2D3D   #25384c
 client.unfocused        #1F2429 #1F2429 #8C969F #1F2429   #1F2429
 client.urgent           #E81123 #E81123 #FFFFFF #FF8C00   #E81123
 
-# --- 9. INCLUDES ---
+# --- 10. INCLUDES ---
 include /etc/sway/config.d/*
