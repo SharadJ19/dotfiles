@@ -189,5 +189,11 @@ client.focused_inactive #25384c #25384c #A6B8C7 #1E2D3D    #25384c
 client.unfocused        #1F2429 #1F2429 #8C969F #1F2429    #1F2429
 client.urgent           #E81123 #E81123 #FFFFFF #FF8C00    #E81123
 
+# --- GAPS CONFIGURATION ---
+gaps inner 6
+gaps outer 0
+smart_gaps on
+smart_borders on
+
 # --- 10. INCLUDES ---
 include /etc/sway/config.d/*
