@@ -111,6 +111,6 @@
   "custom/power": {
     "format": "⏻",
     "tooltip": false,
-    "on-click": "wlogout || shutdown now",
+    "on-click": "~/.config/rofi/scripts/powermenu",
   },
 }
