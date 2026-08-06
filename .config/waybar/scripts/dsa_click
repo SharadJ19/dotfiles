@@ -1,0 +1,12 @@
+#!/bin/bash
+
+URLS_FILE="$HOME/.cache/waybar_dsa_urls"
+
+if [ -f "$URLS_FILE" ]; then
+    random_url=$(shuf -n 1 "$URLS_FILE")
+    if [ -n "$random_url" ]; then
+        firefox "$random_url" &
+    fi
+else
+    firefox "https://leetcode.com/problem-list/top-interview-questions/" &
+fi

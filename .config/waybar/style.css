@@ -33,8 +33,6 @@ window#waybar.hidden {
 #network,
 #pulseaudio,
 #custom-media,
-#custom-keyboard,
-#custom-todo,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -104,7 +102,6 @@ window#waybar.hidden {
 #clock {
   font-weight: 600;
   color: #c084fc; /* Vibrant Soft Lavender */
-  /* Alternative lighter shade: #e9d5ff */
 }
 
 #battery.charging,
@@ -152,19 +149,17 @@ window#waybar.hidden {
   margin-right: 4px;
 }
 
-/* Custom Todo Module Styling */
-#custom-todo {
-  transition: all 0.2s ease;
+#custom-dsa {
+  background-color: rgba(30, 41, 59, 0.7);
+  color: #38bdf8;
+  padding: 2px 12px;
+  margin: 3px 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-weight: 600;
 }
 
-/* State: Pending Tasks */
-#custom-todo.pending {
-  color: #38bdf8; /* Soft Windows blue */
-  background-color: rgba(30, 41, 59, 0.85);
-}
-
-/* State: All Tasks Completed */
-#custom-todo.done {
-  color: #4ade80; /* Success green */
-  background-color: rgba(30, 41, 59, 0.6);
+#custom-dsa:hover {
+  background-color: #0078d4;
+  color: #ffffff;
 }

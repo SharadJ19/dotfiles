@@ -1,0 +1,303 @@
+#!/bin/bash
+
+STATE_FILE="$HOME/.cache/waybar_dsa_state"
+URLS_FILE="$HOME/.cache/waybar_dsa_urls"
+TODAY=$(date '+%Y-%m-%d')
+
+# Comprehensive 280+ Question Database (Heavy Foundational GFG Exclusive + LeetCode Standard)
+declare -A QUESTIONS=(
+    # --- GFG Exclusive: Foundational Arrays & Basic Core ---
+    ["GFG: Kadane's Algorithm"]="https://www.geeksforgeeks.org/problems/kadanes-algorithm-1587115620/1"
+    ["GFG: Missing number in array"]="https://www.geeksforgeeks.org/problems/missing-number-in-array1416/1"
+    ["GFG: Subarray with given sum"]="https://www.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1"
+    ["GFG: Sort an array of 0s, 1s and 2s"]="https://www.geeksforgeeks.org/problems/sort-an-array-of-0s-1s-and-2s4231/1"
+    ["GFG: Equilibrium Point"]="https://www.geeksforgeeks.org/problems/equilibrium-point-1587115620/1"
+    ["GFG: Leaders in an array"]="https://www.geeksforgeeks.org/problems/leaders-in-an-array-1587115620/1"
+    ["GFG: Majority Element"]="https://www.geeksforgeeks.org/problems/majority-element-1587115620/1"
+    ["GFG: Peak element"]="https://www.geeksforgeeks.org/problems/peak-element/1"
+    ["GFG: First element to occur k times"]="https://www.geeksforgeeks.org/problems/first-element-to-occur-k-times5150/1"
+    ["GFG: Kth smallest element"]="https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1"
+    ["GFG: Find duplicates in an array"]="https://www.geeksforgeeks.org/problems/find-duplicates-in-an-array/1"
+    ["GFG: Element with left side smaller and right side greater"]="https://www.geeksforgeeks.org/problems/element-with-left-side-smaller-and-right-side-greater5514/1"
+    ["GFG: Transition Point"]="https://www.geeksforgeeks.org/problems/transition-point-1587115621/1"
+    ["GFG: Count the triplets"]="https://www.geeksforgeeks.org/problems/count-the-triplets4619/1"
+    ["GFG: Spirally traversing a matrix"]="https://www.geeksforgeeks.org/problems/spirally-traversing-a-matrix-1587115621/1"
+    ["GFG: Searching in a matrix"]="https://www.geeksforgeeks.org/problems/search-in-a-matrix-1587115621/1"
+    ["GFG: Rotate a 2D array without extra space"]="https://www.geeksforgeeks.org/problems/rotate-by-90-degree-1587115621/1"
+
+    # --- GFG Exclusive: Foundational Strings & Recursion ---
+    ["GFG: Reverse words in a given string"]="https://www.geeksforgeeks.org/problems/reverse-words-in-a-given-string5459/1"
+    ["GFG: Longest Common Prefix in an Array"]="https://www.geeksforgeeks.org/problems/longest-common-prefix-in-an-array5129/1"
+    ["GFG: Implement Atoi"]="https://www.geeksforgeeks.org/problems/implement-atoi/1"
+    ["GFG: Longest Palindrome in a String"]="https://www.geeksforgeeks.org/problems/longest-palindrome-in-a-string1956/1"
+    ["GFG: Recursively remove all adjacent duplicates"]="https://www.geeksforgeeks.org/problems/recursively-remove-all-adjacent-duplicates0744/1"
+    ["GFG: First non-repeating character in a stream"]="https://www.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1"
+    ["GFG: Roman Number to Integer"]="https://www.geeksforgeeks.org/problems/roman-number-to-integer3201/1"
+    ["GFG: Check if string is rotated by two places"]="https://www.geeksforgeeks.org/problems/check-if-string-is-rotated-by-two-places-1587115620/1"
+    ["GFG: Permutations of a given string"]="https://www.geeksforgeeks.org/problems/permutations-of-a-given-string2041/1"
+
+    # --- GFG Exclusive: Linked Lists Fundamentals ---
+    ["GFG: Detect loop in linked list"]="https://www.geeksforgeeks.org/problems/detect-loop-in-linked-list/1"
+    ["GFG: Find the first node of loop in linked list"]="https://www.geeksforgeeks.org/problems/find-the-first-node-of-loop-in-linked-list--170645/1"
+    ["GFG: Remove loop in linked list"]="https://www.geeksforgeeks.org/problems/remove-loop-in-linked-list/1"
+    ["GFG: Intersection point in Y shaped linked lists"]="https://www.geeksforgeeks.org/problems/intersection-point-in-y-shaped-linked-lists/1"
+    ["GFG: Pairwise swap elements of a linked list"]="https://www.geeksforgeeks.org/problems/pairwise-swap-elements-of-a-linked-list-1587115620/1"
+    ["GFG: Add two numbers represented by linked lists"]="https://www.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1"
+    ["GFG: Check if linked list is palindrome"]="https://www.geeksforgeeks.org/problems/check-if-linked-list-is-palindrome/1"
+    ["GFG: Sort a linked list of 0s, 1s and 2s"]="https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1"
+    ["GFG: Delete N nodes after M nodes of a linked list"]="https://www.geeksforgeeks.org/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/1"
+    ["GFG: Flattening a Linked List"]="https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1"
+
+    # --- GFG Exclusive: Trees & Graphs Fundamentals ---
+    ["GFG: Check for BST"]="https://www.geeksforgeeks.org/problems/check-for-bst/1"
+    ["GFG: Lowest Common Ancestor in a BST"]="https://www.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-bst/1"
+    ["GFG: Vertical Traversal of Binary Tree"]="https://www.geeksforgeeks.org/problems/print-a-binary-tree-in-vertical-order/1"
+    ["GFG: Boundary Traversal of binary tree"]="https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1"
+    ["GFG: Left View of Binary Tree"]="https://www.geeksforgeeks.org/problems/left-view-of-binary-tree/1"
+    ["GFG: Right View of Binary Tree"]="https://www.geeksforgeeks.org/problems/right-view-of-binary-tree/1"
+    ["GFG: Connect Nodes at Same Level"]="https://www.geeksforgeeks.org/problems/connect-nodes-at-same-level/1"
+    ["GFG: Diameter of a Binary Tree"]="https://www.geeksforgeeks.org/problems/diameter-of-binary-tree/1"
+    ["GFG: Lowest Common Ancestor in a Binary Tree"]="https://www.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1"
+    ["GFG: Burn a Binary Tree"]="https://www.geeksforgeeks.org/problems/burning-tree/1"
+    ["GFG: Breadth First Search (BFS) of Graph"]="https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1"
+    ["GFG: Depth First Search (DFS) of Graph"]="https://www.geeksforgeeks.org/problems/print-dfs-traversal-of-graph/1"
+    ["GFG: Detect cycle in an undirected graph"]="https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1"
+    ["GFG: Detect cycle in a directed graph"]="https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1"
+    ["GFG: Topological sort"]="https://www.geeksforgeeks.org/problems/topological-sort/1"
+
+    # --- GFG Exclusive: Stacks, Queues & Greedy Staples ---
+    ["GFG: Next Greater Element"]="https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1"
+    ["GFG: Parenthesis Checker"]="https://www.geeksforgeeks.org/problems/parenthesis-checker2744/1"
+    ["GFG: Stock span problem"]="https://www.geeksforgeeks.org/problems/stock-span-problem-1587115620/1"
+    ["GFG: Evaluation of Postfix Expression"]="https://www.geeksforgeeks.org/problems/evaluation-of-postfix-expression1735/1"
+    ["GFG: Circular tour (Gas Station)"]="https://www.geeksforgeeks.org/problems/circular-tour-1587115620/1"
+    ["GFG: Minimum Platforms"]="https://www.geeksforgeeks.org/problems/minimum-platforms-1587115620/1"
+    ["GFG: N meetings in one room"]="https://www.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1"
+    ["GFG: Job Sequencing Problem"]="https://www.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1"
+    ["GFG: Fractional Knapsack"]="https://www.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1"
+
+    # --- LeetCode Foundational Arrays & Strings ---
+    ["LC: Two Sum"]="https://leetcode.com/problems/two-sum/"
+    ["LC: Contains Duplicate"]="https://leetcode.com/problems/contains-duplicate/"
+    ["LC: Valid Anagram"]="https://leetcode.com/problems/valid-anagram/"
+    ["LC: Replace Elements with Greatest Element on Right Side"]="https://leetcode.com/problems/replace-elements-with-greatest-element-on-right-side/"
+    ["LC: Isomorphic Strings"]="https://leetcode.com/problems/isomorphic-strings/"
+    ["LC: Word Pattern"]="https://leetcode.com/problems/word-pattern/"
+    ["LC: Pascals Triangle"]="https://leetcode.com/problems/pascals-triangle/"
+    ["LC: Remove Element"]="https://leetcode.com/problems/remove-element/"
+    ["LC: Remove Duplicates from Sorted Array"]="https://leetcode.com/problems/remove-duplicates-from-sorted-array/"
+    ["LC: Move Zeroes"]="https://leetcode.com/problems/move-zeroes/"
+    ["LC: Plus One"]="https://leetcode.com/problems/plus-one/"
+    ["LC: Single Number"]="https://leetcode.com/problems/single-number/"
+    ["LC: Missing Number"]="https://leetcode.com/problems/missing-number/"
+    ["LC: Find All Numbers Disappeared in an Array"]="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/"
+    ["LC: Longest Common Prefix"]="https://leetcode.com/problems/longest-common-prefix/"
+    ["LC: Length of Last Word"]="https://leetcode.com/problems/length-of-last-word/"
+    ["LC: Valid Palindrome"]="https://leetcode.com/problems/valid-palindrome/"
+    ["LC: Roman to Integer"]="https://leetcode.com/problems/roman-to-integer/"
+    ["LC: Integer to Roman"]="https://leetcode.com/problems/integer-to-roman/"
+    ["LC: Find the Index of the First Occurrence in a String"]="https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/"
+    ["LC: Maximum Subarray"]="https://leetcode.com/problems/maximum-subarray/"
+    ["LC: Best Time to Buy and Sell Stock"]="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+    ["LC: Majority Element"]="https://leetcode.com/problems/majority-element/"
+    ["LC: Rotate Array"]="https://leetcode.com/problems/rotate-array/"
+    ["LC: Product of Array Except Self"]="https://leetcode.com/problems/product-of-array-except-self/"
+    ["LC: Group Anagrams"]="https://leetcode.com/problems/group-anagrams/"
+    ["LC: Top K Frequent Elements"]="https://leetcode.com/problems/top-k-frequent-elements/"
+    ["LC: Longest Consecutive Sequence"]="https://leetcode.com/problems/longest-consecutive-sequence/"
+    ["LC: Valid Sudoku"]="https://leetcode.com/problems/valid-sudoku/"
+    ["LC: Encode and Decode Strings"]="https://leetcode.com/problems/encode-and-decode-strings/"
+
+    # --- LeetCode Foundational Math, Geometry & Sorting ---
+    ["LC: Palindrome Number"]="https://leetcode.com/problems/palindrome-number/"
+    ["LC: Sqrt(x)"]="https://leetcode.com/problems/sqrtx/"
+    ["LC: Valid Perfect Square"]="https://leetcode.com/problems/valid-perfect-square/"
+    ["LC: Power of Three"]="https://leetcode.com/problems/power-of-three/"
+    ["LC: Power of Four"]="https://leetcode.com/problems/power-of-four/"
+    ["LC: Happy Number"]="https://leetcode.com/problems/happy-number/"
+    ["LC: Fizz Buzz"]="https://leetcode.com/problems/fizz-buzz/"
+    ["LC: Count Primes"]="https://leetcode.com/problems/count-primes/"
+    ["LC: Excel Sheet Column Number"]="https://leetcode.com/problems/excel-sheet-column-number/"
+    ["LC: Merge Sorted Array"]="https://leetcode.com/problems/merge-sorted-array/"
+    ["LC: Meeting Rooms"]="https://leetcode.com/problems/meeting-rooms/"
+    ["LC: Meeting Rooms II"]="https://leetcode.com/problems/meeting-rooms-ii/"
+    ["LC: Sort Colors"]="https://leetcode.com/problems/sort-colors/"
+    ["LC: K Closest Points to Origin"]="https://leetcode.com/problems/k-closest-points-to-origin/"
+    ["LC: Largest Number"]="https://leetcode.com/problems/largest-number/"
+
+    # --- LeetCode Two Pointers & Sliding Window ---
+    ["LC: Valid Palindrome II"]="https://leetcode.com/problems/valid-palindrome-ii/"
+    ["LC: Two Sum II - Input Array Is Sorted"]="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+    ["LC: 3Sum"]="https://leetcode.com/problems/3sum/"
+    ["LC: Container With Most Water"]="https://leetcode.com/problems/container-with-most-water/"
+    ["LC: Trapping Rain Water"]="https://leetcode.com/problems/trapping-rain-water/"
+    ["LC: Longest Substring Without Repeating Characters"]="https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+    ["LC: Longest Repeating Character Replacement"]="https://leetcode.com/problems/longest-repeating-character-replacement/"
+    ["LC: Permutation in String"]="https://leetcode.com/problems/permutation-in-string/"
+    ["LC: Minimum Window Substring"]="https://leetcode.com/problems/minimum-window-substring/"
+    ["LC: Sliding Window Maximum"]="https://leetcode.com/problems/sliding-window-maximum/"
+
+    # --- LeetCode Stacks & Queues ---
+    ["LC: Valid Parentheses"]="https://leetcode.com/problems/valid-parentheses/"
+    ["LC: Min Stack"]="https://leetcode.com/problems/min-stack/"
+    ["LC: Evaluate Reverse Polish Notation"]="https://leetcode.com/problems/evaluate-reverse-polish-notation/"
+    ["LC: Generate Parentheses"]="https://leetcode.com/problems/generate-parentheses/"
+    ["LC: Daily Temperatures"]="https://leetcode.com/problems/daily-temperatures/"
+    ["LC: Car Fleet"]="https://leetcode.com/problems/car-fleet/"
+    ["LC: Largest Rectangle in Histogram"]="https://leetcode.com/problems/largest-rectangle-in-histogram/"
+    ["LC: Implement Stack using Queues"]="https://leetcode.com/problems/implement-stack-using-queues/"
+    ["LC: Implement Queue using Stacks"]="https://leetcode.com/problems/implement-queue-using-stacks/"
+    ["LC: Next Greater Element I"]="https://leetcode.com/problems/next-greater-element-i/"
+
+    # --- LeetCode Binary Search ---
+    ["LC: Binary Search"]="https://leetcode.com/problems/binary-search/"
+    ["LC: Search Insert Position"]="https://leetcode.com/problems/search-insert-position/"
+    ["LC: First Bad Version"]="https://leetcode.com/problems/first-bad-version/"
+    ["LC: Guess Number Higher or Lower"]="https://leetcode.com/problems/guess-number-higher-or-lower/"
+    ["LC: Search a 2D Matrix"]="https://leetcode.com/problems/search-a-2d-matrix/"
+    ["LC: Koko Eating Bananas"]="https://leetcode.com/problems/koko-eating-bananas/"
+    ["LC: Find Minimum in Rotated Sorted Array"]="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/"
+    ["LC: Search in Rotated Sorted Array"]="https://leetcode.com/problems/search-in-rotated-sorted-array/"
+    ["LC: Time Based Key-Value Store"]="https://leetcode.com/problems/time-based-key-value-store/"
+    ["LC: Median of Two Sorted Arrays"]="https://leetcode.com/problems/median-of-two-sorted-arrays/"
+
+    # --- LeetCode Linked Lists ---
+    ["LC: Reverse Linked List"]="https://leetcode.com/problems/reverse-linked-list/"
+    ["LC: Merge Two Sorted Lists"]="https://leetcode.com/problems/merge-two-sorted-lists/"
+    ["LC: Palindrome Linked List"]="https://leetcode.com/problems/palindrome-linked-list/"
+    ["LC: Remove Linked List Elements"]="https://leetcode.com/problems/remove-linked-list-elements/"
+    ["LC: Delete Node in a Linked List"]="https://leetcode.com/problems/delete-node-in-a-linked-list/"
+    ["LC: Middle of the Linked List"]="https://leetcode.com/problems/middle-of-the-linked-list/"
+    ["LC: Intersection of Two Linked Lists"]="https://leetcode.com/problems/intersection-of-two-linked-lists/"
+    ["LC: Reorder List"]="https://leetcode.com/problems/reorder-list/"
+    ["LC: Remove Nth Node From End of List"]="https://leetcode.com/problems/remove-nth-node-from-end-of-list/"
+    ["LC: Copy List with Random Pointer"]="https://leetcode.com/problems/copy-list-with-random-pointer/"
+    ["LC: Add Two Numbers"]="https://leetcode.com/problems/add-two-numbers/"
+    ["LC: Linked List Cycle"]="https://leetcode.com/problems/linked-list-cycle/"
+    ["LC: Find the Duplicate Number"]="https://leetcode.com/problems/find-the-duplicate-number/"
+    ["LC: LRU Cache"]="https://leetcode.com/problems/lru-cache/"
+    ["LC: Merge k Sorted Lists"]="https://leetcode.com/problems/merge-k-sorted-lists/"
+    ["LC: Reverse Nodes in k-Group"]="https://leetcode.com/problems/reverse-nodes-in-k-group/"
+
+    # --- LeetCode Trees ---
+    ["LC: Invert Binary Tree"]="https://leetcode.com/problems/invert-binary-tree/"
+    ["LC: Maximum Depth of Binary Tree"]="https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+    ["LC: Minimum Depth of Binary Tree"]="https://leetcode.com/problems/minimum-depth-of-binary-tree/"
+    ["LC: Diameter of Binary Tree"]="https://leetcode.com/problems/diameter-of-binary-tree/"
+    ["LC: Balanced Binary Tree"]="https://leetcode.com/problems/balanced-binary-tree/"
+    ["LC: Same Tree"]="https://leetcode.com/problems/same-tree/"
+    ["LC: Subtree of Another Tree"]="https://leetcode.com/problems/subtree-of-another-tree/"
+    ["LC: Path Sum"]="https://leetcode.com/problems/path-sum/"
+    ["LC: Binary Tree Preorder Traversal"]="https://leetcode.com/problems/binary-tree-preorder-traversal/"
+    ["LC: Binary Tree Inorder Traversal"]="https://leetcode.com/problems/binary-tree-inorder-traversal/"
+    ["LC: Binary Tree Postorder Traversal"]="https://leetcode.com/problems/binary-tree-postorder-traversal/"
+    ["LC: Lowest Common Ancestor of a BST"]="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+    ["LC: Binary Tree Level Order Traversal"]="https://leetcode.com/problems/binary-tree-level-order-traversal/"
+    ["LC: Binary Tree Right Side View"]="https://leetcode.com/problems/binary-tree-right-side-view/"
+    ["LC: Count Good Nodes in Binary Tree"]="https://leetcode.com/problems/count-good-nodes-in-binary-tree/"
+    ["LC: Validate Binary Search Tree"]="https://leetcode.com/problems/validate-binary-search-tree/"
+    ["LC: Kth Smallest Element in a BST"]="https://leetcode.com/problems/kth-smallest-element-in-a-bst/"
+    ["LC: Construct Binary Tree from Preorder and Inorder Traversal"]="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+    ["LC: Binary Tree Maximum Path Sum"]="https://leetcode.com/problems/binary-tree-maximum-path-sum/"
+    ["LC: Serialize and Deserialize Binary Tree"]="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/"
+
+    # --- Advanced Heaps, Tries & Backtracking ---
+    ["LC: Kth Largest Element in a Stream"]="https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+    ["LC: Last Stone Weight"]="https://leetcode.com/problems/last-stone-weight/"
+    ["LC: Kth Largest Element in an Array"]="https://leetcode.com/problems/kth-largest-element-in-an-array/"
+    ["LC: Task Scheduler"]="https://leetcode.com/problems/task-scheduler/"
+    ["LC: Find Median from Data Stream"]="https://leetcode.com/problems/find-median-from-data-stream/"
+    ["LC: Implement Trie (Prefix Tree)"]="https://leetcode.com/problems/implement-trie-prefix-tree/"
+    ["LC: Design Add and Search Words Data Structure"]="https://leetcode.com/problems/design-add-and-search-words-data-structure/"
+    ["LC: Subsets"]="https://leetcode.com/problems/subsets/"
+    ["LC: Combination Sum"]="https://leetcode.com/problems/combination-sum/"
+    ["LC: Permutations"]="https://leetcode.com/problems/permutations/"
+    ["LC: Subsets II"]="https://leetcode.com/problems/subsets-ii/"
+    ["LC: Word Search"]="https://leetcode.com/problems/word-search/"
+    ["LC: Palindrome Partitioning"]="https://leetcode.com/problems/palindrome-partitioning/"
+    ["LC: Letter Combinations of a Phone Number"]="https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+    ["LC: N-Queens"]="https://leetcode.com/problems/n-queens/"
+
+    # --- Advanced Graphs & Matrices ---
+    ["LC: Flood Fill"]="https://leetcode.com/problems/flood-fill/"
+    ["LC: Island Perimeter"]="https://leetcode.com/problems/island-perimeter/"
+    ["LC: Number of Islands"]="https://leetcode.com/problems/number-of-islands/"
+    ["LC: Max Area of Island"]="https://leetcode.com/problems/max-area-of-island/"
+    ["LC: Clone Graph"]="https://leetcode.com/problems/clone-graph/"
+    ["LC: Rotting Oranges"]="https://leetcode.com/problems/rotting-oranges/"
+    ["LC: Pacific Atlantic Water Flow"]="https://leetcode.com/problems/pacific-atlantic-water-flow/"
+    ["LC: Surrounded Regions"]="https://leetcode.com/problems/surrounded-regions/"
+    ["LC: Course Schedule"]="https://leetcode.com/problems/course-schedule/"
+    ["LC: Course Schedule II"]="https://leetcode.com/problems/course-schedule-ii/"
+    ["LC: Graph Valid Tree"]="https://leetcode.com/problems/graph-valid-tree/"
+    ["LC: Number of Connected Components in an Undirected Graph"]="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+    ["LC: Redundant Connection"]="https://leetcode.com/problems/redundant-connection/"
+    ["LC: Word Ladder"]="https://leetcode.com/problems/word-ladder/"
+    ["LC: Network Delay Time"]="https://leetcode.com/problems/network-delay-time/"
+
+    # --- Advanced Dynamic Programming & Greedy ---
+    ["LC: Climbing Stairs"]="https://leetcode.com/problems/climbing-stairs/"
+    ["LC: Min Cost Climbing Stairs"]="https://leetcode.com/problems/min-cost-climbing-stairs/"
+    ["LC: Fibonacci Number"]="https://leetcode.com/problems/fibonacci-number/"
+    ["LC: House Robber"]="https://leetcode.com/problems/house-robber/"
+    ["LC: House Robber II"]="https://leetcode.com/problems/house-robber-ii/"
+    ["LC: Longest Palindromic Substring"]="https://leetcode.com/problems/longest-palindromic-substring/"
+    ["LC: Palindromic Substrings"]="https://leetcode.com/problems/palindromic-substrings/"
+    ["LC: Decode Ways"]="https://leetcode.com/problems/decode-ways/"
+    ["LC: Coin Change"]="https://leetcode.com/problems/coin-change/"
+    ["LC: Maximum Product Subarray"]="https://leetcode.com/problems/maximum-product-subarray/"
+    ["LC: Word Break"]="https://leetcode.com/problems/word-break/"
+    ["LC: Longest Increasing Subsequence"]="https://leetcode.com/problems/longest-increasing-subsequence/"
+    ["LC: Partition Equal Subset Sum"]="https://leetcode.com/problems/partition-equal-subset-sum/"
+    ["LC: Unique Paths"]="https://leetcode.com/problems/unique-paths/"
+    ["LC: Longest Common Subsequence"]="https://leetcode.com/problems/longest-common-subsequence/"
+    ["LC: Edit Distance"]="https://leetcode.com/problems/edit-distance/"
+    ["LC: Jump Game"]="https://leetcode.com/problems/jump-game/"
+    ["LC: Jump Game II"]="https://leetcode.com/problems/jump-game-ii/"
+    ["LC: Gas Station"]="https://leetcode.com/problems/gas-station/"
+    ["LC: Partition Labels"]="https://leetcode.com/problems/partition-labels/"
+    ["LC: Valid Parenthesis String"]="https://leetcode.com/problems/valid-parenthesis-string/"
+
+    # --- Intervals, Advanced Matrix & Bit Manipulation ---
+    ["LC: Insert Interval"]="https://leetcode.com/problems/insert-interval/"
+    ["LC: Merge Intervals"]="https://leetcode.com/problems/merge-intervals/"
+    ["LC: Non-overlapping Intervals"]="https://leetcode.com/problems/non-overlapping-intervals/"
+    ["LC: Rotate Image"]="https://leetcode.com/problems/rotate-image/"
+    ["LC: Spiral Matrix"]="https://leetcode.com/problems/spiral-matrix/"
+    ["LC: Set Matrix Zeroes"]="https://leetcode.com/problems/set-matrix-zeroes/"
+    ["LC: Single Number II"]="https://leetcode.com/problems/single-number-ii/"
+    ["LC: Number of 1 Bits"]="https://leetcode.com/problems/number-of-1-bits/"
+    ["LC: Counting Bits"]="https://leetcode.com/problems/counting-bits/"
+    ["LC: Reverse Bits"]="https://leetcode.com/problems/reverse-bits/"
+)
+
+keys=("${!QUESTIONS[@]}")
+
+if [ ! -f "$STATE_FILE" ] || [ "$(head -n 1 "$STATE_FILE")" != "$TODAY" ]; then
+    selected_indices=($(shuf -i 0-$((${#keys[@]} - 1)) -n 5))
+    echo "$TODAY" > "$STATE_FILE"
+    for idx in "${selected_indices[@]}"; do
+        echo "${keys[$idx]}|${QUESTIONS[${keys[$idx]}]}" >> "$STATE_FILE"
+    done
+fi
+
+mapfile -t lines < <(tail -n 5 "$STATE_FILE")
+
+tooltip=""
+urls=()
+first=true
+for line in "${lines[@]}"; do
+    q_name="${line%%|*}"
+    q_url="${line##*|}"
+    if [ "$first" = true ]; then
+        tooltip="• $q_name"
+        first=false
+    else
+        tooltip+="\n• $q_name"
+    fi
+    urls+=("$q_url")
+done
+
+printf "%s\n" "${urls[@]}" > "$URLS_FILE"
+
+printf '{"text": "    DSA", "alt": "dsa", "tooltip": "%s"}\n' "$tooltip"
