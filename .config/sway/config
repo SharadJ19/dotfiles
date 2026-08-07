@@ -67,6 +67,7 @@ for_window [app_id="thunar" title="Properties"] floating enable, resize set 500 
 for_window [app_id="mpv"] floating enable, sticky enable, resize set 360 px 202 px, move position 785 px 405 px
 for_window [app_id="swayimg"] floating enable, resize set 900 px 600 px
 for_window [app_id="org.qbittorrent.qBittorrent"] floating enable, resize set 950 px 600 px
+for_window [app_id="org.qbittorrent.qBittorrent" title="^Remove "] floating enable, resize set 400 px 150 px, move position center
 
 # Universal Fallbacks for Dialogs, Popups & Sub-windows
 for_window [window_role="pop-up"] floating enable
