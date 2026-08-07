@@ -44,8 +44,8 @@ input type:touchpad {
 }
 
 input type:keyboard {
-    repeat_delay 250
-    repeat_rate 40
+    repeat_delay 180
+    repeat_rate 50
 }
 
 # --- 6. SMART WINDOW & FLOATING RULES ---
@@ -64,7 +64,7 @@ for_window [app_id="thunar" title="^Rename "] floating enable, resize set 400 px
 for_window [app_id="thunar" title="Properties"] floating enable, resize set 500 px 600 px
 
 # Media, Downloads & Viewers
-for_window [app_id="mpv"] floating enable, resize set 960 px 540 px
+for_window [app_id="mpv"] floating enable, sticky enable, resize set 360 px 202 px, move position 785 px 405 px
 for_window [app_id="swayimg"] floating enable, resize set 900 px 600 px
 for_window [app_id="org.qbittorrent.qBittorrent"] floating enable, resize set 950 px 600 px
 
