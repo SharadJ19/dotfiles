@@ -20,7 +20,7 @@ swayimg.set_format_params('raw', { camera_wb = true })
 swayimg.imagelist.order = "numeric"
 swayimg.imagelist.reverse = false
 swayimg.imagelist.recursive = false
-swayimg.imagelist.adjacent = false
+swayimg.imagelist.adjacent = true
 swayimg.imagelist.fsmon = true
 
 --------------------------------------------------------------------------------
