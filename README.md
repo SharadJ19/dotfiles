@@ -20,9 +20,9 @@ My personal Arch Linux setup running Sway on an **ASUS VivoBook 14**. Built arou
 
 #### Rofi Scripts & Workflows
 
-|              Clipboard Manager               |            To-Do List Script            |                 Power Menu                 |
-| :------------------------------------------: | :-------------------------------------: | :----------------------------------------: |
-| ![Clipboard Manager](./screenshots/clip.png) | ![To-Do Script](./screenshots/todo.png) | ![Power Menu](./screenshots/powermenu.png) |
+|                            Clipboard Manager |                 Power Menu                 |
+| -------------------------------------------: | :----------------------------------------: |
+| ![Clipboard Manager](./screenshots/clip.png) | ![Power Menu](./screenshots/powermenu.png) |
 
 ### 🎨 Theme & Appearance
 
@@ -60,7 +60,6 @@ options snd-intel-dspcfg dsp_driver=1
 | `Mod + Return`    | Open `foot` terminal                                    |
 | `Mod + d`         | Open Rofi launcher                                      |
 | `Mod + t`         | Open Thunar file manager                                |
-| `Mod + n`         | Toggle Rofi To-Do list script                           |
 | `Mod + v`         | Open Rofi Clipboard history (`cliphist`)                |
 | `Mod + Shift + e` | Open Rofi Power Menu                                    |
 | `Print`           | Capture full screen to `~/Pictures/Screenshots/`        |
@@ -82,7 +81,7 @@ dotfiles/
 │   │   └── scripts/     # todo, clip, powermenu scripts
 │   ├── sway/            # Sway config, keybinds, wallpapers
 │   ├── swaylock/        # Screen locker
-│   ├── waybar/          # Waybar config, CSS, and todo status module
+│   ├── waybar/          # Waybar config and CSS
 │   └── zed/             # Zed editor config
 ├── .local/
 │   └── share/
@@ -114,7 +113,7 @@ yay -S --needed - < aur_pkglist.txt
 cd ~/dotfiles
 
 # Copy user configs
-cp -ur .config/{easyeffects,foot,gtk-3.0,gtk-4.0,mako,rofi,sway,swaylock,waybar,zed} ~/.config/
+cp -ur .config/{easyeffects,foot,gtk-3.0,gtk-4.0,mako,rofi,sway,swayimg,swaylock,waybar,zed} ~/.config/
 
 # Copy custom fonts and update cache
 mkdir -p ~/.local/share/fonts
