@@ -1,5 +1,5 @@
 # =========================================================================
-# SWAYWM CONFIGURATION - ARCH LINUX (UPDATED & OPTIMIZED)
+# SWAYWM CONFIGURATION - ARCH LINUX (TOKYO NIGHT THEME)
 # =========================================================================
 
 # --- 1. VARIABLES ---
@@ -39,8 +39,8 @@ input type:touchpad {
     middle_emulation enabled
     click_method clickfinger
     accel_profile flat
-    pointer_accel 0.75       # Highly responsive cursor for 14-inch display
-    scroll_factor 1.2        # Faster, fluid scrolling speed
+    pointer_accel 0.75        # Highly responsive cursor for 14-inch display
+    scroll_factor 1.2         # Faster, fluid scrolling speed
 }
 
 input type:keyboard {
@@ -190,18 +190,19 @@ bar {
     swaybar_command disabled
 }
 
-# --- 9. WINDOW THEME & BORDERS ---
+# --- 9. WINDOW THEME & BORDERS (TOKYO NIGHT PALETTE) ---
+# Syntax: client.<class> <border> <background> <text> <indicator> <child_border>
 default_border pixel 2
-client.focused         #005A9E #005A9E #FFFFFF #0078D4    #005A9E
-client.focused_inactive #25384c #25384c #A6B8C7 #1E2D3D    #25384c
-client.unfocused        #1F2429 #1F2429 #8C969F #1F2429    #1F2429
-client.urgent           #E81123 #E81123 #FFFFFF #FF8C00    #E81123
+client.focused          #7aa2f7 #24283b #c0caf5 #7dcfff    #7aa2f7
+client.focused_inactive #414868 #1a1b26 #787c99 #414868    #414868
+client.unfocused        #24283b #1a1b26 #565f89 #24283b    #24283b
+client.urgent           #f7768e #f7768e #1a1b26 #bb9af7    #f7768e
 
 # --- GAPS CONFIGURATION ---
-gaps inner 6
+gaps inner 4
 gaps outer 0
-smart_gaps on
-smart_borders on
+smart_gaps off
+smart_borders off
 
 # --- 10. INCLUDES ---
 include /etc/sway/config.d/*

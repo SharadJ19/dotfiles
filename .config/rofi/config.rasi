@@ -1,22 +1,23 @@
 configuration {
-    modi:                       "drun,run";
-    show-icons:                 true;
-    display-drun:               " ";
-    display-run:                " ";
-    drun-display-format:        "{name}";
-    font:                       "Netflix Sans Medium, JetBrainsMono Nerd Font 11.5";
+    modi:                     "drun,run";
+    show-icons:               true;
+    display-drun:             " ";
+    display-run:              " ";
+    drun-display-format:      "{name}";
+    font:                     "Netflix Sans Medium, JetBrainsMono Nerd Font 11.5";
 }
 
 /* =========================================================================
-   COMPACT WINDOWS DARK BLUE PALETTE
+   TOKYO NIGHT THEME PALETTE FOR ROFI
    ========================================================================= */
 * {
-    bg-main:     #0f172a; /* Deep Windows Dark Blue */
-    bg-surface:  #1e293b; /* Search bar background */
-    bg-selected: #0284c7; /* Active Blue Accent */
-    fg-main:     #f8fafc; /* Crisp white text */
-    fg-muted:    #94a3b8; /* Muted gray-blue */
-    border-blue: #38bdf8; /* Subtle outer border glow */
+    bg-main:      #1a1b26; /* Tokyo Night Background */
+    bg-surface:   #24283b; /* Lighter Dark Surface */
+    bg-selected:  #7aa2f7; /* Tokyo Night Blue Accent */
+    fg-main:      #c0caf5; /* Main Foreground Text */
+    fg-muted:     #565f89; /* Inactive / Muted Text */
+    border-cyan:  #7dcfff; /* Cyan Outer Border Glow */
+    border-input: #414868; /* Input Box Border */
 
     background-color: transparent;
     text-color:       @fg-main;
@@ -26,130 +27,130 @@ configuration {
    MAIN WINDOW
    ========================================================================= */
 window {
-    transparency:     "real";
-    location:         center;
-    anchor:           center;
-    fullscreen:       false;
-    width:            380px;
-    x-offset:         0px;
-    y-offset:         0px;
+    transparency:       "real";
+    location:           center;
+    anchor:             center;
+    fullscreen:         false;
+    width:              380px;
+    x-offset:           0px;
+    y-offset:           0px;
 
-    enabled:          true;
-    margin:           0px;
-    padding:          0px;
-    border:           1px solid;
-    border-color:     @border-blue;
-    border-radius:    8px;
-    background-color: @bg-main;
-    cursor:           "default";
+    enabled:            true;
+    margin:             0px;
+    padding:            0px;
+    border:             2px solid;
+    border-color:       @border-cyan;
+    border-radius:      10px;
+    background-color:   @bg-main;
+    cursor:             "default";
 }
 
 /* =========================================================================
    MAIN CONTAINER
    ========================================================================= */
 mainbox {
-    enabled:          true;
-    spacing:          6px;
-    margin:           0px;
-    padding:          10px;
-    background-color: transparent;
-    children:         [ "inputbar", "listview" ];
+    enabled:            true;
+    spacing:            6px;
+    margin:             0px;
+    padding:            10px;
+    background-color:   transparent;
+    children:           [ "inputbar", "listview" ];
 }
 
 /* =========================================================================
    INPUT BAR
    ========================================================================= */
 inputbar {
-    enabled:          true;
-    spacing:          8px;
-    margin:           0px 0px 4px 0px;
-    padding:          8px 12px;
-    border:           1px solid;
-    border-color:     #334155;
-    border-radius:    6px;
-    background-color: @bg-surface;
-    text-color:       @fg-main;
-    children:         [ "prompt", "entry" ];
+    enabled:            true;
+    spacing:            8px;
+    margin:             0px 0px 4px 0px;
+    padding:            8px 12px;
+    border:             1px solid;
+    border-color:       @border-input;
+    border-radius:      8px;
+    background-color:   @bg-surface;
+    text-color:         @fg-main;
+    children:           [ "prompt", "entry" ];
 }
 
 prompt {
-    enabled:          true;
-    background-color: inherit;
-    text-color:       @border-blue;
-    padding:          0px 4px 0px 0px;
+    enabled:            true;
+    background-color:   inherit;
+    text-color:         @border-cyan;
+    padding:            0px 4px 0px 0px;
 }
 
 entry {
-    enabled:          true;
-    background-color: inherit;
-    text-color:       inherit;
-    cursor:           text;
-    placeholder:      "Search...";
-    placeholder-color:@fg-muted;
+    enabled:            true;
+    background-color:   inherit;
+    text-color:         inherit;
+    cursor:             text;
+    placeholder:        "Search...";
+    placeholder-color:  @fg-muted;
 }
 
 /* =========================================================================
    RESULTS LIST
    ========================================================================= */
 listview {
-    enabled:          true;
-    columns:          1;
-    lines:            8;
-    cycle:            true;
-    dynamic:          true;
-    scrollbar:        false;
-    layout:           vertical;
-    fixed-height:     true;
-    fixed-columns:    true;
+    enabled:            true;
+    columns:            1;
+    lines:              8;
+    cycle:              true;
+    dynamic:            true;
+    scrollbar:          false;
+    layout:             vertical;
+    fixed-height:       true;
+    fixed-columns:      true;
 
-    spacing:          4px;
-    margin:           0px;
-    padding:          0px;
-    background-color: transparent;
-    text-color:       @fg-main;
+    spacing:            4px;
+    margin:             0px;
+    padding:            0px;
+    background-color:   transparent;
+    text-color:         @fg-main;
 }
 
 /* =========================================================================
-   ELEMENTS (FIXED FOR INVISIBLE TEXT)
+   ELEMENTS
    ========================================================================= */
 element {
-    enabled:          true;
-    spacing:          8px;
-    margin:           0px;
-    padding:          6px 10px;
-    border-radius:    5px;
-    background-color: transparent;
-    text-color:       @fg-main;
-    cursor:           pointer;
+    enabled:            true;
+    spacing:            8px;
+    margin:             0px;
+    padding:            6px 10px;
+    border-radius:      6px;
+    background-color:   transparent;
+    text-color:         @fg-main;
+    cursor:             pointer;
 }
 
 element normal.normal {
-    background-color: transparent;
-    text-color:       @fg-main;
+    background-color:   transparent;
+    text-color:         @fg-main;
 }
 
 element alternate.normal {
-    background-color: transparent;
-    text-color:       @fg-main;
+    background-color:   transparent;
+    text-color:         @fg-main;
 }
 
 element selected.normal {
-    background-color: @bg-selected;
-    text-color:       #ffffff;
+    background-color:   @bg-selected;
+    text-color:         #1a1b26; /* Dark contrast text on selected blue item */
 }
 
 element-text {
-    background-color: transparent;
-    text-color:       inherit;
-    highlight:        inherit;
-    cursor:           inherit;
-    vertical-align:   0.5;
-    horizontal-align: 0.0;
+    background-color:   transparent;
+    text-color:         inherit;
+    highlight:          inherit;
+    cursor:             inherit;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
 }
 
 element-icon {
-    background-color: transparent;
-    text-color:       inherit;
-    size:             18px;
-    cursor:           inherit;
+    background-color:   transparent;
+    text-color:         inherit;
+    size:               18px;
+    cursor:             inherit;
 }

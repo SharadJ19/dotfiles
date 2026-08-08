@@ -1,10 +1,10 @@
 -- ~/.config/swayimg/init.lua
--- Official Swayimg v5.5 Configuration
+-- Official Swayimg v5.5 Configuration (Tokyo Night Theme)
 
 --------------------------------------------------------------------------------
 -- General config
 --------------------------------------------------------------------------------
-swayimg.mode = "viewer"                 -- mode at startup
+swayimg.mode = "viewer"                  -- mode at startup
 swayimg.antialiasing = true             -- anti-aliasing
 swayimg.decoration = true               -- window title/buttons/borders
 swayimg.overlay = false                 -- window overlay mode
@@ -31,8 +31,8 @@ swayimg.text.font = "Netflix Sans Medium"
 swayimg.text.size = 14
 swayimg.text.spacing = 0
 swayimg.text.padding = 10
-swayimg.text.color = 0xff38bdf8              -- Accent Blue
-swayimg.text.background = 0x00000000
+swayimg.text.color = 0xffc0caf5             -- Tokyo Night Foreground (Main Text Color)
+swayimg.text.background = 0x991a1b26        -- Tokyo Night Semi-transparent Background for readability
 swayimg.text.shadow = 0x0d000000
 swayimg.text.timeout = 5
 swayimg.text.status_timeout = 3
@@ -47,12 +47,12 @@ swayimg.viewer.autocenter = true
 swayimg.viewer.loop = true
 swayimg.viewer.preload = 1
 swayimg.viewer.history = 1
-swayimg.viewer.mark_color = 0xff808080
+swayimg.viewer.mark_color = 0xff565f89      -- Tokyo Night Muted Gray
 swayimg.viewer.pinch_factor = 1.0
 
 -- Background settings
-swayimg.viewer.set_window_background(0xff0f172a) -- Dark Blue
-swayimg.viewer.set_image_chessboard(20, 0xff333333, 0xff4c4c4c)
+swayimg.viewer.set_window_background(0xff1a1b26) -- Tokyo Night Background
+swayimg.viewer.set_image_chessboard(20, 0xff24283b, 0xff414868)
 
 -- Overlay text blocks
 swayimg.viewer.set_text("topleft", {
@@ -197,11 +197,11 @@ swayimg.gallery.thumb_size = 200
 swayimg.gallery.aspect = "fill"
 swayimg.gallery.padding_size = 5
 swayimg.gallery.border_size = 5
-swayimg.gallery.border_color = 0xffaaaaaa
+swayimg.gallery.border_color = 0xff414868     -- Tokyo Night Border / Surface Highlight
 swayimg.gallery.selected_scale = 1.15
-swayimg.gallery.selected_color = 0xff404040
-swayimg.gallery.unselected_color = 0xff202020
-swayimg.gallery.window_color = 0xff0f172a
+swayimg.gallery.selected_color = 0xff7aa2f7   -- Tokyo Night Blue Accent
+swayimg.gallery.unselected_color = 0xff24283b -- Tokyo Night Surface Dark
+swayimg.gallery.window_color = 0xff1a1b26     -- Tokyo Night Background
 swayimg.gallery.pinch_factor = 100.0
 swayimg.gallery.hover = true
 swayimg.gallery.cache = 100
