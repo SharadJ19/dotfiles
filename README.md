@@ -1,6 +1,6 @@
-# 💻 Sharad's Dotfiles
+# 💻 Sharad's Arch Linux Dotfiles
 
-My personal Arch Linux setup running Sway on an **ASUS VivoBook 14**. Built around a custom **Windows Dark Blue** slate theme, lightweight Wayland tools, and a couple of essential scripts I use every day.
+My personal Arch Linux setup running **Sway** on an **ASUS VivoBook 14**. Built around an immersive, vibrant **Tokyo Night** theme, lightweight Wayland utilities, and a clean tiling workflow.
 
 ### 📸 Screenshots
 
@@ -20,17 +20,17 @@ My personal Arch Linux setup running Sway on an **ASUS VivoBook 14**. Built arou
 
 #### Rofi Scripts & Workflows
 
-|                            Clipboard Manager |                 Power Menu                 |
-| -------------------------------------------: | :----------------------------------------: |
+|              Clipboard Manager               |                 Power Menu                 |
+| :------------------------------------------: | :----------------------------------------: |
 | ![Clipboard Manager](./screenshots/clip.png) | ![Power Menu](./screenshots/powermenu.png) |
 
 ### 🎨 Theme & Appearance
 
 - **Window Manager:** Sway (`1920x1080 @ 1.5x` scale on `eDP-1`)
-- **Palette:** Windows Dark Blue (`#0f172a` deep slate, `#0078d4` / `#38bdf8` blue accents)
-- **Status Bar:** Waybar (Top bar, custom pill layout)
-- **Launcher:** Rofi (Custom 380px compact launcher + scripts)
-- **Terminal:** Foot (`JetBrainsMono Nerd Font` @ `11.5pt`)
+- **Palette:** **Tokyo Night** (`#1a1b26` dark background, `#7aa2f7` blue & `#bb9af7` purple accents)
+- **Status Bar:** Waybar (Top bar with pill-style Tokyo Night modules)
+- **Launcher:** Rofi (Customized compact Tokyo Night launcher & scripts)
+- **Terminal:** Foot (`JetBrainsMono Nerd Font` @ `11.5pt` with Tokyo Night colors)
 - **Editor:** Zed / Neovim
 - **UI & Bar Font:** `Netflix Sans Medium` (`9.5pt`) _(Bundled under `.local/share/fonts/`)_
 - **GTK / Icons:** `Materia-dark` + `Adwaita`
@@ -50,7 +50,6 @@ The internal microphone on this Tiger Lake laptop doesn't work out of the box on
 ```ini
 options snd-hda-intel model=alc256-asus-aio
 options snd-intel-dspcfg dsp_driver=1
-
 ```
 
 ### ⌨️ Custom Keybindings & Workflow
@@ -73,15 +72,16 @@ options snd-intel-dspcfg dsp_driver=1
 dotfiles/
 ├── .config/
 │   ├── easyeffects/     # Audio processing & EQ
-│   ├── foot/            # Foot terminal configuration
+│   ├── foot/            # Foot terminal configuration (Tokyo Night)
 │   ├── gtk-3.0/         # GTK3 dark theme settings
 │   ├── gtk-4.0/         # GTK4 dark theme settings
 │   ├── mako/            # Notification daemon
-│   ├── rofi/            # Compact dark blue launcher & custom scripts
+│   ├── rofi/            # Compact Tokyo Night launcher & custom scripts
 │   │   └── scripts/     # todo, clip, powermenu scripts
-│   ├── sway/            # Sway config, keybinds, wallpapers
+│   ├── sway/            # Sway config, keybinds, Tokyo Night borders, wallpapers
+│   ├── swayimg/         # Image viewer configuration (Tokyo Night theme)
 │   ├── swaylock/        # Screen locker
-│   ├── waybar/          # Waybar config and CSS
+│   ├── waybar/          # Waybar config and Tokyo Night CSS tokens
 │   └── zed/             # Zed editor config
 ├── .local/
 │   └── share/
@@ -149,6 +149,7 @@ pacman -Qqem > aur_pkglist.txt
 
 # Commit
 git add .
-git commit -m "style(dotfiles): update configs, screenshots, and package lists"
+git commit -m "style(dotfiles): update configs to Tokyo Night theme and sync package lists"
 git push
+
 ```
